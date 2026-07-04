@@ -29,7 +29,10 @@ public class MixinServerPlayer implements IModPropertiesServerPlayer {
     }
 
     // ------------------------------------------------------------------------------
-    // Data transfer upon player death
+    // Carry over data upon respawning.
+    // Do not modify the values here.
+    // This is because this section is invoked when the player dies or returns from the End.
+    // If you wish to change the values upon death, please use an event to do so.
 
     @Inject(method = "restoreFrom", at = @At("TAIL"))
     private void onCopyFrom(ServerPlayer serverPlayer, boolean bl, CallbackInfo ci) {
@@ -51,7 +54,7 @@ public class MixinServerPlayer implements IModPropertiesServerPlayer {
 
         Player player = (Player) (Object) this;
         // Please follow the implementation of the methods in the target Mixin when writing your code.
-        ((IModPropertiesServerPlayer) player).test$setCustomIntData(valueInput.getIntOr(DATA_FIELD_NAME, 5));
+        ((IModPropertiesServerPlayer) player).test$setCustomIntData(valueInput.getIntOr(DATA_FIELD_NAME, 0));
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At(value = "TAIL"))
