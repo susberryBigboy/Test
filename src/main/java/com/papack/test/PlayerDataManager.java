@@ -11,7 +11,6 @@ public class PlayerDataManager {
 
     public static void dataManager(LivingEntity entity, ServerPlayer sourcePlayer) {
 
-
         // Retrieving custom data.
         int currentValue = ((IModPropertiesServerPlayer) sourcePlayer).test$getCustomIntData();
 
