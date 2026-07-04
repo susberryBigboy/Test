@@ -52,15 +52,16 @@ public class MixinServerPlayer implements IModPropertiesServerPlayer {
     @Inject(method = "readAdditionalSaveData", at = @At(value = "TAIL"))
     private void readAdditionalSaveData(ValueInput valueInput, CallbackInfo ci) {
 
-        Player player = (Player) (Object) this;
+        ServerPlayer player = (ServerPlayer) (Object) this;
         // Please follow the implementation of the methods in the target Mixin when writing your code.
+        // getIntOr("field name" , value upon read failure)
         ((IModPropertiesServerPlayer) player).test$setCustomIntData(valueInput.getIntOr(DATA_FIELD_NAME, 0));
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At(value = "TAIL"))
     private void addAdditionalSaveData(ValueOutput valueOutput, CallbackInfo ci) {
 
-        Player player = (Player) (Object) this;
+        ServerPlayer player = (ServerPlayer) (Object) this;
         // Please follow the implementation of the methods in the target Mixin when writing your code.
         valueOutput.putInt(DATA_FIELD_NAME, ((IModPropertiesServerPlayer) player).test$getCustomIntData());
     }
