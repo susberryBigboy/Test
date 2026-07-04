@@ -11,8 +11,8 @@ public class PlayerDataManager {
 
     public static void dataManager(LivingEntity entity, ServerPlayer sourcePlayer) {
 
-        sourcePlayer.sendSystemMessage(Component.literal("killed: " + entity.getName().getString()), false);
 
+        // Retrieving custom data.
         int currentValue = ((IModPropertiesServerPlayer) sourcePlayer).test$getCustomIntData();
 
         int rewardPoint = 0;
@@ -26,6 +26,13 @@ public class PlayerDataManager {
         if (entity instanceof Villager) {
             rewardPoint = -currentValue;
         }
-        ((IModPropertiesServerPlayer) sourcePlayer).test$setCustomIntData(currentValue + rewardPoint);
+
+        // Updating player custom data.
+        // Since NBT data updates rely on vanilla mechanics, only player data is updated.
+        int value = currentValue + rewardPoint;
+        ((IModPropertiesServerPlayer) sourcePlayer).test$setCustomIntData(value);
+
+        sourcePlayer.sendSystemMessage(Component.literal("killed: " + entity.getName().getString()), false);
+        sourcePlayer.sendSystemMessage(Component.literal("Score: " + value), false);
     }
 }

@@ -9,7 +9,8 @@ import org.spongepowered.asm.mixin.Unique;
 public class MixinServerPlayer implements IModPropertiesServerPlayer {
 
     @Unique
-    private int customInt = -1;
+    // Default value
+    private int customInt = 0;
 
     @Override
     public int test$getCustomIntData() {

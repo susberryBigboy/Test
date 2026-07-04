@@ -16,13 +16,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(Player.class)
 public class MixinPlayer {
 
+    //
+
     @Unique
+    // Name to assign to NBT data.
+    // If there are multiple values, you need to set them individually.
     private final String DATA_FIELD_NAME = "custom_int";
 
     @Inject(method = "readAdditionalSaveData", at = @At(value = "TAIL"))
     private void readAdditionalSaveData(ValueInput valueInput, CallbackInfo ci) {
 
         Player player = (Player) (Object) this;
+        // Please follow the implementation of the methods in the target Mixin when writing your code.
         ((IModPropertiesServerPlayer) player).test$setCustomIntData(valueInput.getIntOr(DATA_FIELD_NAME, 5));
     }
 
@@ -30,6 +35,7 @@ public class MixinPlayer {
     private void addAdditionalSaveData(ValueOutput valueOutput, CallbackInfo ci) {
 
         Player player = (Player) (Object) this;
+        // Please follow the implementation of the methods in the target Mixin when writing your code.
         valueOutput.putInt(DATA_FIELD_NAME, ((IModPropertiesServerPlayer) player).test$getCustomIntData());
     }
 }

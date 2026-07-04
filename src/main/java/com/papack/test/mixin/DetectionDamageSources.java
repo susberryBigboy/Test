@@ -20,7 +20,6 @@ public class DetectionDamageSources {
         if (source.getEntity() instanceof ServerPlayer sourcePlayer) {
 
             PlayerDataManager.dataManager(entity, sourcePlayer);
-
         }
     }
 }
