@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "test",
+  "version": "${version}",
+
+  "custom": {
+    "cardinal-components": [
+      "test:magic"
+    ]
+  },
+
+  "name": "TEST",
+  "description": "",
+  "authors": [],
+  "contact": {},
+
+  "license": "All-Rights-Reserved",
+  "icon": "assets/test/icon.png",
+
+  "environment": "server",
+  "entrypoints": {
+    "client": ["com.papack.test.client.TestClient"],
+    "main": ["com.papack.test.Test"]
+  },
+
+  "mixins": [
+    "test.mixins.json"
+    ,{
+      "config": "test.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
