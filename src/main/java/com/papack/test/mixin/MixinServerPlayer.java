@@ -23,7 +23,6 @@ public class MixinServerPlayer implements IModPropertiesServerPlayer {
     private int customInt = 0;
 
 
-
     @Override
     public int test$getCustomIntData() {
         return customInt;
@@ -38,17 +37,15 @@ public class MixinServerPlayer implements IModPropertiesServerPlayer {
     @Inject(method = "readAdditionalSaveData", at = @At(value = "TAIL"))
     private void readAdditionalSaveData(ValueInput valueInput, CallbackInfo ci) {
 
-        ServerPlayer player = (ServerPlayer) (Object) this;
         // Please follow the implementation of the methods in the target Mixin when writing your code.
         // getIntOr("field name" , value upon read failure)
-        ((IModPropertiesServerPlayer) player).test$setCustomIntData(valueInput.getIntOr(DATA_FIELD_NAME, 0));
+        this.customInt = valueInput.getIntOr(DATA_FIELD_NAME, 0);
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At(value = "TAIL"))
     private void addAdditionalSaveData(ValueOutput valueOutput, CallbackInfo ci) {
 
-        ServerPlayer player = (ServerPlayer) (Object) this;
         // Please follow the implementation of the methods in the target Mixin when writing your code.
-        valueOutput.putInt(DATA_FIELD_NAME, ((IModPropertiesServerPlayer) player).test$getCustomIntData());
+        valueOutput.putInt(DATA_FIELD_NAME, this.customInt);
     }
 }
