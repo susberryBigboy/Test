@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(LivingEntity.class)
-public class DetectionDamageSources {
+public class MixinLivingEntity {
 
     @Inject(method = "die", at = @At(value = "HEAD"))
     private void whoKilledMob(DamageSource source, CallbackInfo ci) {
@@ -19,7 +19,7 @@ public class DetectionDamageSources {
 
         if (source.getEntity() instanceof ServerPlayer sourcePlayer) {
 
-            PlayerDataManager.dataManager(entity, sourcePlayer);
+            PlayerDataManager.onEntityKill(entity, sourcePlayer);
         }
     }
 }
