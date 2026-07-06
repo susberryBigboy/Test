@@ -25,17 +25,17 @@ public class MixinServerPlayer implements IModPropertiesServerPlayer {
     DataPool dataPool = new DataPool();
 
     @Override
-    public DataPool __getDataPool() {
+    public DataPool $_getDataPool() {
         return dataPool;
     }
 
     @Override
-    public void __setPoolData(FieldType fieldType, Object value) {
+    public void $_setPoolData(FieldType fieldType, Object value) {
         dataPool.setValue(fieldType, value);
     }
 
     @Override
-    public Object __getPoolData(FieldType fieldType) {
+    public Object $_getPoolData(FieldType fieldType) {
         return dataPool.getValue(fieldType);
     }
 

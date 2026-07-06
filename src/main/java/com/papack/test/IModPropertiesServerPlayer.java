@@ -5,9 +5,9 @@ import com.papack.test.fields.FieldType;
 
 //Define the setter and getter for the data you want to add.
 public interface IModPropertiesServerPlayer {
-    DataPool __getDataPool();
+    DataPool $_getDataPool();
 
-    void __setPoolData(FieldType fieldType, Object value);
+    void $_setPoolData(FieldType fieldType, Object value);
 
-    Object __getPoolData(FieldType fieldType);
+    Object $_getPoolData(FieldType fieldType);
 }
