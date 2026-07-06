@@ -43,43 +43,26 @@ public class MixinServerPlayer implements IModPropertiesServerPlayer {
     @Inject(method = "readAdditionalSaveData", at = @At(value = "TAIL"))
     private void readAdditionalSaveData(ValueInput valueInput, CallbackInfo ci) {
 
-        // String Map
         Map<String, String> stringMap = valueInput.read(STRING_MAP_NAME, STRING_MAP_CODEC).orElse(new HashMap<>());
-        dataPool.setStringDataMap(new HashMap<>(stringMap));
-
-        // Int Map
         Map<String, Integer> intMap = valueInput.read(INT_MAP_NAME, INT_MAP_CODEC).orElse(new HashMap<>());
-        dataPool.setIntDataMap(new HashMap<>(intMap));
-
-        // Float Map
         Map<String, Float> floatMap = valueInput.read(FLOAT_MAP_NAME, FLOAT_MAP_CODEC).orElse(new HashMap<>());
-        dataPool.setFloatDataMap(new HashMap<>(floatMap));
-
-        // Double Map
         Map<String, Double> doubleMap = valueInput.read(DOUBLE_MAP_NAME, DOUBLE_MAP_CODEC).orElse(new HashMap<>());
-        dataPool.setDoubleDataMap(new HashMap<>(doubleMap));
-
-        // Boolean Map
         Map<String, Boolean> booleanMap = valueInput.read(BOOLEAN_MAP_NAME, BOOLEAN_MAP_CODEC).orElse(new HashMap<>());
+
+        dataPool.setStringDataMap(new HashMap<>(stringMap));
+        dataPool.setIntDataMap(new HashMap<>(intMap));
+        dataPool.setFloatDataMap(new HashMap<>(floatMap));
+        dataPool.setDoubleDataMap(new HashMap<>(doubleMap));
         dataPool.setBooleanDataMap(new HashMap<>(booleanMap));
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At(value = "TAIL"))
     private void addAdditionalSaveData(ValueOutput valueOutput, CallbackInfo ci) {
 
-        // String Map
         valueOutput.store(STRING_MAP_NAME, STRING_MAP_CODEC, dataPool.getStringDataMap());
-
-        // Int Map
         valueOutput.store(INT_MAP_NAME, INT_MAP_CODEC, dataPool.getIntDataMap());
-
-        // Float Map
         valueOutput.store(FLOAT_MAP_NAME, FLOAT_MAP_CODEC, dataPool.getFloatDataMap());
-
-        // Double Map
         valueOutput.store(DOUBLE_MAP_NAME, DOUBLE_MAP_CODEC, dataPool.getDoubleDataMap());
-
-        // Boolean Map
         valueOutput.store(BOOLEAN_MAP_NAME, BOOLEAN_MAP_CODEC, dataPool.getBooleanDataMap());
     }
 }
