@@ -27,7 +27,18 @@ Writing it as follows also conveys the same meaning.
 ## Reading from the Field
 Cast ServerPlayer to IModPropertiesServerPlayer.  
 example:  
-`int currentValue = (int) iPlayer.$_getPoolData(lifeCounter);`
-Please cast `ServerPlayer` to `IModPropertiesServerPlayer`.
+`int currentValue = (int) iPlayer.$_getPoolData(lifeCounter);`  
+Please cast **"ServerPlayer" to "IModPropertiesServerPlayer".**  
 In this example, the **received value is an "Object"**, so cast it to **"\(int\)"**.
 For other types, cast accordingly.
+
+
+## Important
+
+Each player is assigned a DataPool instance.  
+The DataPool class contains maps for int, float, double, string, and boolean types.  
+Since field types are predefined, you can use them like player properties without worrying about map operations.  
+Be sure to cast the retrieved values to the required type.  
+
+Each map is independent.  
+By registering, you can use multiple fields.  
