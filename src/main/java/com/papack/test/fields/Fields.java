@@ -1,4 +1,4 @@
-package com.papack.test.variable;
+package com.papack.test.fields;
 
 public class Fields {
     public static final FieldType lifeCounter = new FieldType("life_counter", FieldType.Type.INT);
@@ -9,4 +9,10 @@ public class Fields {
 
     public static final FieldType lastReward = new FieldType("last_reward", FieldType.Type.FLOAT);
     public static final FieldType testFloatField = new FieldType("test_float", FieldType.Type.FLOAT);
+
+    /*
+    public static final FieldType testDoubleField = new FieldType("test_double", FieldType.Type.DOUBLE);
+    public static final FieldType testBooleanField = new FieldType("test_boolean", FieldType.Type.BOOLEAN);
+    */
+
 }

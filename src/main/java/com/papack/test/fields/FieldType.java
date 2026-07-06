@@ -1,9 +1,11 @@
-package com.papack.test.variable;
+package com.papack.test.fields;
 
 public record FieldType(String fieldName, Type type) {
     public enum Type {
-        INT,
         STRING,
-        FLOAT
+        INT,
+        FLOAT,
+        DOUBLE,
+        BOOLEAN
     }
 }

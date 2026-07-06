@@ -1,14 +1,14 @@
 package com.papack.test;
 
-import com.papack.test.variable.DataPool;
-import com.papack.test.variable.FieldType;
+import com.papack.test.fields.DataPool;
+import com.papack.test.fields.FieldType;
 
 //Define the setter and getter for the data you want to add.
 public interface IModPropertiesServerPlayer {
-    DataPool test$getDataPool();
+    DataPool $_getDataPool();
 
-    void test$setCustomData(FieldType fieldType, Object value);
+    void $_setPoolData(FieldType fieldType, Object value);
 
-    Object test$getCustomData(FieldType fieldType);
+    Object $_getPoolData(FieldType fieldType);
 
 }

@@ -6,7 +6,7 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 
 import java.util.HashMap;
 
-import static com.papack.test.variable.Fields.lifeCounter;
+import static com.papack.test.fields.Fields.lifeCounter;
 
 public class Test implements ModInitializer {
 
@@ -20,11 +20,14 @@ public class Test implements ModInitializer {
 
             if (entity instanceof IModPropertiesServerPlayer iPlayer) {
 
-                int value = (int) iPlayer.test$getCustomData(lifeCounter);
-                // 🔴 java.lang.Math.max が自動で使われるよう、JOMLのインポートを削除しました
+                int value = (int) iPlayer.$_getPoolData(lifeCounter);
                 int modifiedValue = Math.max(0, value - 5);
 
-                iPlayer.test$setCustomData(lifeCounter, modifiedValue);
+                iPlayer.$_setPoolData(lifeCounter, modifiedValue);
+
+                // (The result is the same even if you write it this way.)
+                // iPlayer.getDataPool().setValue(lifeCounter, modifiedValue);
+
             }
 
             return true;
@@ -36,10 +39,13 @@ public class Test implements ModInitializer {
             if (oldPlayer instanceof IModPropertiesServerPlayer iOldPlayer
                     && newPlayer instanceof IModPropertiesServerPlayer iNewPlayer) {
 
-                // 🔴 データの参照共有によるバニラ/MODの競合バグを防ぐため、new HashMap<> でコピーを作成してセットします
-                iNewPlayer.test$getDataPool().setIntDataMap(new HashMap<>(iOldPlayer.test$getDataPool().getIntDataMap()));
-                iNewPlayer.test$getDataPool().setStringDataMap(new HashMap<>(iOldPlayer.test$getDataPool().getStringDataMap()));
-                iNewPlayer.test$getDataPool().setFloatDataMap(new HashMap<>(iOldPlayer.test$getDataPool().getFloatDataMap()));
+                // To prevent bugs caused by conflicts between vanilla and modded content arising
+                // from shared data references, a copy is created using `new HashMap<>()` and set.
+                iNewPlayer.$_getDataPool().setStringDataMap(new HashMap<>(iOldPlayer.$_getDataPool().getStringDataMap()));
+                iNewPlayer.$_getDataPool().setIntDataMap(new HashMap<>(iOldPlayer.$_getDataPool().getIntDataMap()));
+                iNewPlayer.$_getDataPool().setFloatDataMap(new HashMap<>(iOldPlayer.$_getDataPool().getFloatDataMap()));
+                iNewPlayer.$_getDataPool().setDoubleDataMap(new HashMap<>(iOldPlayer.$_getDataPool().getDoubleDataMap()));
+                iNewPlayer.$_getDataPool().setBooleanDataMap(new HashMap<>(iOldPlayer.$_getDataPool().getBooleanDataMap()));
             }
         });
     }
