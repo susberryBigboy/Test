@@ -2,10 +2,10 @@
 
 ## Register the field
 
-**example:**  
+**example: \[ Field.class \]**  
 `public static final FieldType lifeCounter = new FieldType("life_counter", FieldType.Type.INT);`
 
-Write it in **\[Fields.class\]** like this.  
+Write it in "Fields.class" like this.  
 **"lifeCounter"** is the field name used in the code.  
 **"life_counter"** is the tag used in NBT.  
 Finally, specify the field type.  
