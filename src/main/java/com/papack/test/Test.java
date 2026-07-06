@@ -20,10 +20,10 @@ public class Test implements ModInitializer {
 
             if (entity instanceof IModPropertiesServerPlayer iPlayer) {
 
-                int value = (int) iPlayer.$_getPoolData(lifeCounter);
+                int value = (int) iPlayer.__getPoolData(lifeCounter);
                 int modifiedValue = Math.max(0, value - 5);
 
-                iPlayer.$_setPoolData(lifeCounter, modifiedValue);
+                iPlayer.__setPoolData(lifeCounter, modifiedValue);
 
                 // (The result is the same even if you write it this way.)
                 // iPlayer.getDataPool().setValue(lifeCounter, modifiedValue);
@@ -41,11 +41,11 @@ public class Test implements ModInitializer {
 
                 // To prevent bugs caused by conflicts between vanilla and modded content arising
                 // from shared data references, a copy is created using `new HashMap<>()` and set.
-                iNewPlayer.$_getDataPool().setStringDataMap(new HashMap<>(iOldPlayer.$_getDataPool().getStringDataMap()));
-                iNewPlayer.$_getDataPool().setIntDataMap(new HashMap<>(iOldPlayer.$_getDataPool().getIntDataMap()));
-                iNewPlayer.$_getDataPool().setFloatDataMap(new HashMap<>(iOldPlayer.$_getDataPool().getFloatDataMap()));
-                iNewPlayer.$_getDataPool().setDoubleDataMap(new HashMap<>(iOldPlayer.$_getDataPool().getDoubleDataMap()));
-                iNewPlayer.$_getDataPool().setBooleanDataMap(new HashMap<>(iOldPlayer.$_getDataPool().getBooleanDataMap()));
+                iNewPlayer.__getDataPool().setStringDataMap(new HashMap<>(iOldPlayer.__getDataPool().getStringDataMap()));
+                iNewPlayer.__getDataPool().setIntDataMap(new HashMap<>(iOldPlayer.__getDataPool().getIntDataMap()));
+                iNewPlayer.__getDataPool().setFloatDataMap(new HashMap<>(iOldPlayer.__getDataPool().getFloatDataMap()));
+                iNewPlayer.__getDataPool().setDoubleDataMap(new HashMap<>(iOldPlayer.__getDataPool().getDoubleDataMap()));
+                iNewPlayer.__getDataPool().setBooleanDataMap(new HashMap<>(iOldPlayer.__getDataPool().getBooleanDataMap()));
             }
         });
     }

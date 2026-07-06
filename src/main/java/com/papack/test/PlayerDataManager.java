@@ -17,7 +17,7 @@ public class PlayerDataManager {
         if (sourcePlayer instanceof IModPropertiesServerPlayer iPlayer) {
 
             // Retrieving custom data.
-            int currentValue = (int) iPlayer.$_getPoolData(lifeCounter);
+            int currentValue = (int) iPlayer.__getPoolData(lifeCounter);
 
             int rewardPoint = 0;
 
@@ -34,7 +34,7 @@ public class PlayerDataManager {
             // Updating player custom data.
             // Since NBT data updates rely on vanilla mechanics, only player data is updated.
 
-            DataPool iDataPool = iPlayer.$_getDataPool();
+            DataPool iDataPool = iPlayer.__getDataPool();
 
 
             int value = currentValue + rewardPoint;
