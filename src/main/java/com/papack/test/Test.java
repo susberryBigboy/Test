@@ -26,7 +26,7 @@ public class Test implements ModInitializer {
                 iPlayer.$_setPoolData(lifeCounter, modifiedValue);
 
                 // (The result is the same even if you write it this way.)
-                // iPlayer.getDataPool().$_setValue(lifeCounter, modifiedValue);
+                // iPlayer.$_getDataPool().$_setValue(lifeCounter, modifiedValue);
 
             }
 
