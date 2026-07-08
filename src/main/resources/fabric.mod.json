@@ -19,14 +19,18 @@
 
   "environment": "server",
   "entrypoints": {
-    "client": ["com.papack.test.client.TestClient"],
-    "main": ["com.papack.test.Test"]
+    "client": [
+      "com.papack.test.client.SurvivalStrategyClient"
+    ],
+    "main": [
+      "com.papack.survivalstrategy.SurvivalStrategy"
+    ]
   },
 
   "mixins": [
-    "test.mixins.json"
+    "survivalstrategy.mixins.json"
     ,{
-      "config": "test.client.mixins.json",
+      "config": "survivalstrategy.client.mixins.json",
       "environment": "client"
     }
   ],

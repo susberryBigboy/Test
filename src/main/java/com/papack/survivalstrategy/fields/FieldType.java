@@ -1,4 +1,4 @@
-package com.papack.test.fields;
+package com.papack.survivalstrategy.fields;
 
 public record FieldType(String fieldName, Type type) {
     public enum Type {

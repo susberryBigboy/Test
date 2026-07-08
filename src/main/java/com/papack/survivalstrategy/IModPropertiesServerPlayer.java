@@ -1,7 +1,7 @@
-package com.papack.test;
+package com.papack.survivalstrategy;
 
-import com.papack.test.fields.DataPool;
-import com.papack.test.fields.FieldType;
+import com.papack.survivalstrategy.fields.DataPool;
+import com.papack.survivalstrategy.fields.FieldType;
 
 //Define the setter and getter for the data you want to add.
 public interface IModPropertiesServerPlayer {

@@ -1,4 +1,4 @@
-package com.papack.test;
+package com.papack.survivalstrategy;
 
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
@@ -6,11 +6,11 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 
 import java.util.HashMap;
 
-import static com.papack.test.fields.Fields.lifeCounter;
+import static com.papack.survivalstrategy.fields.Fields.remainingTime;
 
-public class Test implements ModInitializer {
+public class SurvivalStrategy implements ModInitializer {
 
-    public static final String MOD_ID = "testmod";
+    public static final String MOD_ID = "survivalstrategy";
 
     @Override
     public void onInitialize() {
@@ -20,10 +20,10 @@ public class Test implements ModInitializer {
 
             if (entity instanceof IModPropertiesServerPlayer iPlayer) {
 
-                int value = (int) iPlayer.$_getPoolData(lifeCounter);
+                int value = (int) iPlayer.$_getPoolData(remainingTime);
                 int modifiedValue = Math.max(0, value - 5);
 
-                iPlayer.$_setPoolData(lifeCounter, modifiedValue);
+                iPlayer.$_setPoolData(remainingTime, modifiedValue);
 
                 // (The result is the same even if you write it this way.)
                 // iPlayer.$_getDataPool().$_setValue(lifeCounter, modifiedValue);

@@ -1,8 +1,8 @@
-package com.papack.test.mixin;
+package com.papack.survivalstrategy.mixin;
 
-import com.papack.test.IModPropertiesServerPlayer;
-import com.papack.test.fields.DataPool;
-import com.papack.test.fields.FieldType;
+import com.papack.survivalstrategy.IModPropertiesServerPlayer;
+import com.papack.survivalstrategy.fields.DataPool;
+import com.papack.survivalstrategy.fields.FieldType;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.papack.test.fields.Codecs.*;
+import static com.papack.survivalstrategy.fields.Codecs.*;
 
 
 @Mixin(ServerPlayer.class)

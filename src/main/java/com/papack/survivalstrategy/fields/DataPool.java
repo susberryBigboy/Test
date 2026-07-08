@@ -1,4 +1,4 @@
-package com.papack.test.fields;
+package com.papack.survivalstrategy.fields;
 
 import java.util.HashMap;
 import java.util.Map;

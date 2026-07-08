@@ -1,6 +1,6 @@
-package com.papack.test;
+package com.papack.survivalstrategy;
 
-import com.papack.test.fields.DataPool;
+import com.papack.survivalstrategy.fields.DataPool;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
@@ -8,7 +8,7 @@ import net.minecraft.world.entity.monster.skeleton.Skeleton;
 import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.entity.npc.villager.Villager;
 
-import static com.papack.test.fields.Fields.*;
+import static com.papack.survivalstrategy.fields.Fields.*;
 
 public class PlayerDataManager {
 
@@ -17,7 +17,7 @@ public class PlayerDataManager {
         if (sourcePlayer instanceof IModPropertiesServerPlayer iPlayer) {
 
             // Retrieving custom data.
-            int currentValue = (int) iPlayer.$_getPoolData(lifeCounter);
+            int currentValue = (int) iPlayer.$_getPoolData(remainingTime);
 
             int rewardPoint = 0;
 
@@ -37,8 +37,8 @@ public class PlayerDataManager {
             DataPool iDataPool = iPlayer.$_getDataPool();
 
             int value = currentValue + rewardPoint;
-            iDataPool.setValue(lifeCounter, value);
-            iDataPool.setValue(testIntField, value * 2);
+            iDataPool.setValue(remainingTime, value);
+            iDataPool.setValue(survivalTime, value * 2);
 
             iDataPool.setValue(lastMob, entity.getName().getString());
             iDataPool.setValue(testStrField, entity.getName().getString() + "-test");

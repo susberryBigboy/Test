@@ -1,6 +1,6 @@
-package com.papack.test.mixin;
+package com.papack.survivalstrategy.mixin;
 
-import com.papack.test.PlayerDataManager;
+import com.papack.survivalstrategy.PlayerDataManager;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;

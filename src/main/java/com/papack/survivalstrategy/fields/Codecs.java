@@ -1,10 +1,10 @@
-package com.papack.test.fields;
+package com.papack.survivalstrategy.fields;
 
 import com.mojang.serialization.Codec;
 
 import java.util.Map;
 
-import static com.papack.test.Test.MOD_ID;
+import static com.papack.survivalstrategy.SurvivalStrategy.MOD_ID;
 
 public class Codecs {
     public static final Codec<Map<String, String>> STRING_MAP_CODEC = Codec.unboundedMap(Codec.STRING, Codec.STRING);
