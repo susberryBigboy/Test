@@ -1,6 +1,7 @@
 package com.papack.survivalstrategy.mixin;
 
 import com.papack.survivalstrategy.IModPropertiesServerPlayer;
+import com.papack.survivalstrategy.ServerPlayerTick;
 import com.papack.survivalstrategy.fields.DataPool;
 import com.papack.survivalstrategy.fields.FieldType;
 import net.minecraft.server.level.ServerPlayer;
@@ -64,5 +65,10 @@ public class MixinServerPlayer implements IModPropertiesServerPlayer {
         valueOutput.store(FLOAT_MAP_NAME, FLOAT_MAP_CODEC, dataPool.getFloatDataMap());
         valueOutput.store(DOUBLE_MAP_NAME, DOUBLE_MAP_CODEC, dataPool.getDoubleDataMap());
         valueOutput.store(BOOLEAN_MAP_NAME, BOOLEAN_MAP_CODEC, dataPool.getBooleanDataMap());
+    }
+
+    @Inject(method = "tick", at = @At(value = "TAIL"))
+    private void tickMixin(CallbackInfo ci) {
+        ServerPlayerTick.onServerPlayerTick(this);
     }
 }

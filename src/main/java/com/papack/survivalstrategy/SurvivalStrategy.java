@@ -3,6 +3,8 @@ package com.papack.survivalstrategy;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 
 import java.util.HashMap;
 
@@ -48,5 +50,20 @@ public class SurvivalStrategy implements ModInitializer {
                 iNewPlayer.$_getDataPool().setBooleanDataMap(new HashMap<>(iOldPlayer.$_getDataPool().getBooleanDataMap()));
             }
         });
+
+        // Player Join Event
+        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+
+            if (handler.player instanceof IModPropertiesServerPlayer iPlayer) {
+
+                // Initialize if "registeredPlayer" is false.
+                if (!Utils.isRegisteredPlayer(iPlayer)) {
+                    Utils.initializeThePlayer(iPlayer);
+                }
+            }
+        });
+
+        // Server Tick Event
+        ServerTickEvents.END_SERVER_TICK.register(ServerTick::onServerTick);
     }
 }

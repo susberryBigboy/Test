@@ -3,11 +3,22 @@ package com.papack.survivalstrategy;
 import com.papack.survivalstrategy.fields.DataPool;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ambient.AmbientCreature;
+import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.fish.WaterAnimal;
+import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
+import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.skeleton.Skeleton;
+import net.minecraft.world.entity.monster.spider.Spider;
+import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.monster.zombie.Zombie;
-import net.minecraft.world.entity.npc.villager.Villager;
+import net.minecraft.world.entity.player.Player;
 
+import static com.papack.survivalstrategy.RewardConfig.*;
 import static com.papack.survivalstrategy.fields.Fields.*;
 
 public class PlayerDataManager {
@@ -19,37 +30,45 @@ public class PlayerDataManager {
             // Retrieving custom data.
             int currentValue = (int) iPlayer.$_getPoolData(remainingTime);
 
-            int rewardPoint = 0;
-
-            if (entity instanceof Zombie) {
-                rewardPoint = 1;
-            }
-            if (entity instanceof Skeleton) {
-                rewardPoint = 5;
-            }
-            if (entity instanceof Villager) {
-                rewardPoint = -currentValue;
-            }
+            int rewardPoint = getReward(entity);
 
             // Updating player custom data.
             // Since NBT data updates rely on vanilla mechanics, only player data is updated.
 
-            DataPool iDataPool = iPlayer.$_getDataPool();
+            DataPool dataPool = iPlayer.$_getDataPool();
 
-            int value = currentValue + rewardPoint;
-            iDataPool.setValue(remainingTime, value);
-            iDataPool.setValue(survivalTime, value * 2);
-
-            iDataPool.setValue(lastMob, entity.getName().getString());
-            iDataPool.setValue(testStrField, entity.getName().getString() + "-test");
-
-            iDataPool.setValue(lastReward, (float) rewardPoint);
-            iDataPool.setValue(testFloatField, rewardPoint + 0.5f);
+            int value = Math.max(0, currentValue + rewardPoint);
+            dataPool.setValue(remainingTime, value);
 
 
             sourcePlayer.sendSystemMessage(Component.literal("killed: " + entity.getName().getString()), false);
             sourcePlayer.sendSystemMessage(Component.literal("Score: " + value), false);
 
         }
+    }
+
+    private static int getReward(LivingEntity entity) {
+
+        // Reward
+        if (entity instanceof Spider) return getGameTime(0, 0, 5);
+        if (entity instanceof Skeleton) return getGameTime(0, 0, 20);
+        if (entity instanceof Creeper) return getGameTime(0, 0, 20);
+        if (entity instanceof Zombie) return getGameTime(0, 0, 30);
+        if (entity instanceof Player) return getGameTime(0, 0, 40);
+        if (entity instanceof EnderMan) return getGameTime(0, 0, 50);
+        if (entity instanceof WitherBoss) return getGameTime(0, 4, 0);
+        if (entity instanceof EnderDragon) return getGameTime(1, 0, 30);
+        if (entity instanceof Warden) return getGameTime(2, 0, 0);
+
+
+        // Penalty
+        if (entity instanceof AgeableMob
+                || entity instanceof Animal
+                || entity instanceof AmbientCreature
+                || entity instanceof WaterAnimal) return -getGameTime(1, 0, 0);
+
+
+        // None
+        return 0;
     }
 }
