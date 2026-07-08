@@ -1,15 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "test",
+  "id": "survivalstrategy",
   "version": "${version}",
 
-  "custom": {
-    "cardinal-components": [
-      "test:magic"
-    ]
-  },
-
-  "name": "TEST",
+  "name": "Survival Strategy",
   "description": "",
   "authors": [],
   "contact": {},
@@ -20,7 +14,7 @@
   "environment": "server",
   "entrypoints": {
     "client": [
-      "com.papack.test.client.SurvivalStrategyClient"
+      "com.papack.survivalstrategy.client.SurvivalStrategyClient"
     ],
     "main": [
       "com.papack.survivalstrategy.SurvivalStrategy"

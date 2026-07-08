@@ -1,4 +1,4 @@
-package com.papack.test.client;
+package com.papack.survivalstrategy.client;
 
 import net.fabricmc.api.ClientModInitializer;
 
