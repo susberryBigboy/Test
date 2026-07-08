@@ -37,9 +37,9 @@ public class PlayerDataManager {
 
             DataPool dataPool = iPlayer.$_getDataPool();
 
-            int value = Math.max(0, currentValue + rewardPoint);
+            int value = currentValue + rewardPoint;
             dataPool.setValue(remainingTime, value);
-
+            GlobalScoreboardManager.updatePlayerData(sourcePlayer, value);
 
             sourcePlayer.sendSystemMessage(Component.literal("killed: " + entity.getName().getString()), false);
             sourcePlayer.sendSystemMessage(Component.literal("Score: " + value), false);

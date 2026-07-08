@@ -15,20 +15,21 @@ public class ServerPlayerTick {
 
     private static void updateLifeTime(IModPropertiesServerPlayer iPlayer) {
 
-        if (((ServerPlayer) iPlayer).isAlive()) {
+        if (iPlayer instanceof ServerPlayer serverPlayer && serverPlayer.isAlive()) {
 
             DataPool dataPool = iPlayer.$_getDataPool();
 
             // Remaining Time - decrement
             int currentRemainingTime = (int) dataPool.getValue(Fields.remainingTime);
-            int updatedRemainingTime = Math.max(0, currentRemainingTime - 1);
+            int updatedRemainingTime = Math.max(-1, currentRemainingTime - 1);                  // Just to be safe, stop at -1 as a safeguard.
 
             dataPool.setValue(Fields.remainingTime, updatedRemainingTime);
+            GlobalScoreboardManager.updatePlayerData(serverPlayer, updatedRemainingTime);
 
 
             // Survival Time - increment
             int currentSurvivalTime = (int) dataPool.getValue(Fields.survivalTime);
-            int updatedSurvivalTime = Math.max(0, currentSurvivalTime + 1);
+            int updatedSurvivalTime = currentSurvivalTime + 1;
 
             dataPool.setValue(Fields.survivalTime, updatedSurvivalTime);
         }

@@ -29,4 +29,12 @@ public class Utils {
     public static void ban(ServerPlayer serverPlayer) {
         serverPlayer.sendSystemMessage(Component.literal("GAME OVER"), true);
     }
+
+    public static void onPlayerDied(IModPropertiesServerPlayer iPlayer) {
+        DataPool dataPool = iPlayer.$_getDataPool();
+
+        int currentRemainingTime = (int) dataPool.getValue(remainingTime);
+        int penalty = RewardConfig.getGameTime(2, 0, 0);
+        dataPool.setValue(remainingTime, currentRemainingTime - penalty);
+    }
 }

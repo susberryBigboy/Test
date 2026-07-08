@@ -2,9 +2,11 @@ package com.papack.survivalstrategy.mixin;
 
 import com.papack.survivalstrategy.IModPropertiesServerPlayer;
 import com.papack.survivalstrategy.ServerPlayerTick;
+import com.papack.survivalstrategy.Utils;
 import com.papack.survivalstrategy.fields.DataPool;
 import com.papack.survivalstrategy.fields.FieldType;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
 import org.spongepowered.asm.mixin.Mixin;
@@ -70,5 +72,10 @@ public class MixinServerPlayer implements IModPropertiesServerPlayer {
     @Inject(method = "tick", at = @At(value = "TAIL"))
     private void tickMixin(CallbackInfo ci) {
         ServerPlayerTick.onServerPlayerTick(this);
+    }
+
+    @Inject(method = "die", at = @At(value = "HEAD"))
+    private void onPlayerDied(DamageSource damageSource, CallbackInfo ci) {
+        Utils.onPlayerDied(this);
     }
 }

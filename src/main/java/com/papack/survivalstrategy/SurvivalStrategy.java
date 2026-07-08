@@ -3,6 +3,7 @@ package com.papack.survivalstrategy;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 
@@ -65,5 +66,8 @@ public class SurvivalStrategy implements ModInitializer {
 
         // Server Tick Event
         ServerTickEvents.END_SERVER_TICK.register(ServerTick::onServerTick);
+
+        // ScoreBoard Object
+        ServerLifecycleEvents.SERVER_STARTED.register(GlobalScoreboardManager::initScoreboard);
     }
 }
