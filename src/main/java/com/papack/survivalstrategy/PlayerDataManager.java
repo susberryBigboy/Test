@@ -2,6 +2,7 @@ package com.papack.survivalstrategy;
 
 import com.papack.survivalstrategy.fields.DataPool;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.LivingEntity;
@@ -41,9 +42,9 @@ public class PlayerDataManager {
             dataPool.setValue(remainingTime, value);
             GlobalScoreboardManager.updatePlayerData(sourcePlayer, value);
 
-            sourcePlayer.sendSystemMessage(Component.literal("killed: " + entity.getName().getString()), false);
-            sourcePlayer.sendSystemMessage(Component.literal("Score: " + value), false);
-
+            MutableComponent msg = Component.literal("killed: " + entity.getName().getString())
+                    .append("  rewardPoint: " + rewardPoint);
+            sourcePlayer.sendSystemMessage(msg, false);
         }
     }
 

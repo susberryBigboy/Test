@@ -2,6 +2,9 @@ package com.papack.survivalstrategy;
 
 import com.papack.survivalstrategy.fields.DataPool;
 import com.papack.survivalstrategy.fields.Fields;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.server.level.ServerPlayer;
 
 public class ServerPlayerTick {
@@ -32,6 +35,15 @@ public class ServerPlayerTick {
             int updatedSurvivalTime = currentSurvivalTime + 1;
 
             dataPool.setValue(Fields.survivalTime, updatedSurvivalTime);
+
+            // send message - (Action Bar) - remaining time
+            MutableComponent msg =
+                    Component.literal("Remaining: " + updatedRemainingTime)
+                            .append("  Survival: " + updatedSurvivalTime)
+                            .withStyle(ChatFormatting.YELLOW)
+                            .withStyle(ChatFormatting.BOLD);
+
+            serverPlayer.sendSystemMessage(msg, true);
         }
     }
 }
