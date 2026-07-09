@@ -13,8 +13,8 @@ public class ServerTick {
 
         List<ServerPlayer> playerList = server.getPlayerList().getPlayers();
         if (!playerList.isEmpty()) {
-            for (ServerPlayer player : playerList) {
-                if (player instanceof IModPropertiesServerPlayer iPlayer) {
+            for (ServerPlayer serverPlayer : playerList) {
+                if (serverPlayer instanceof IModPropertiesServerPlayer iPlayer) {
 
                     if (Utils.isRegisteredPlayer(iPlayer)) {
 
@@ -26,7 +26,7 @@ public class ServerTick {
 
                                 // [ GAME OVER ]
                                 dataPool.setValue(Fields.flagBan, true);
-                                GameOverHandler.handleGameOver(player, (int) dataPool.getValue(Fields.survivalTime));
+                                GameOverHandler.handleGameOver(serverPlayer, (int) dataPool.getValue(Fields.survivalTime));
                             }
                         }
                     }

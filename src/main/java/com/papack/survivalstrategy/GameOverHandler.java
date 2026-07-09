@@ -4,8 +4,12 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundSetSubtitleTextPacket;
 import net.minecraft.network.protocol.game.ClientboundSetTitleTextPacket;
 import net.minecraft.network.protocol.game.ClientboundSetTitlesAnimationPacket;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.GameType;
+import net.minecraft.world.level.Level;
 
 public class GameOverHandler {
 
@@ -13,6 +17,9 @@ public class GameOverHandler {
         if (serverPlayer == null || serverPlayer.isRemoved()) {
             return;
         }
+
+        // Force Kill
+        forceKillThePlayer(serverPlayer);
 
         // 1. Change the player to spectator mode
         serverPlayer.setGameMode(GameType.SPECTATOR);
@@ -38,5 +45,16 @@ public class GameOverHandler {
                 serverPlayer.connection.disconnect(kickMessage);
             }
         });
+    }
+
+    private static void forceKillThePlayer(ServerPlayer serverPlayer) {
+        MinecraftServer server = serverPlayer.level().getServer();
+        ResourceKey<Level> dimension = serverPlayer.level().dimension();
+        ServerLevel serverLevel = server.getLevel(dimension);
+
+        if (serverLevel != null) {
+            serverPlayer.kill(serverLevel);
+            serverPlayer.setRespawnPosition(null, false);
+        }
     }
 }
