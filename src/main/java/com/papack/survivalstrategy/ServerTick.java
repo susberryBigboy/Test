@@ -1,5 +1,6 @@
 package com.papack.survivalstrategy;
 
+import com.papack.survivalstrategy.fields.DataPool;
 import com.papack.survivalstrategy.fields.Fields;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -17,8 +18,16 @@ public class ServerTick {
 
                     if (Utils.isRegisteredPlayer(iPlayer)) {
 
-                        if ((int) iPlayer.$_getDataPool().getValue(Fields.remainingTime) <= 0) {
-                            Utils.ban(player);
+                        DataPool dataPool = iPlayer.$_getDataPool();
+
+                        if ((int) dataPool.getValue(Fields.remainingTime) <= 0) {
+
+                            if (!(boolean) dataPool.getValue(Fields.flagBan)) {
+
+                                // [ GAME OVER ]
+                                dataPool.setValue(Fields.flagBan, true);
+                                GameOverHandler.handleGameOver(player, (int) dataPool.getValue(Fields.survivalTime));
+                            }
                         }
                     }
                 }

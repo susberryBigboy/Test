@@ -11,6 +11,8 @@ public class Fields {
     // Registered Player - Determine whether the player has already participated.
     public static final FieldType registeredPlayer = new FieldType("registered_player", FieldType.Type.BOOLEAN);
 
+    // Flag Ban -  Flag indicating that the "BAN" process has been initiated.
+    public static final FieldType flagBan = new FieldType("flag_ban", FieldType.Type.BOOLEAN);
 
     // test
     /*

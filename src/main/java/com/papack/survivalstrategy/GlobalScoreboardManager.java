@@ -26,7 +26,7 @@ public class GlobalScoreboardManager {
             objective = scoreboard.addObjective(
                     OBJECTIVE_NAME,
                     ObjectiveCriteria.DUMMY,
-                    Component.literal("§e【Remaining Time】"), // サイドバーのタイトル
+                    Component.literal("§e【Survival Time】"), // サイドバーのタイトル
                     ObjectiveCriteria.RenderType.INTEGER,
                     false, // 自動で初期化するかどうか
                     null   // ナンバーフォーマット（デフォルト）

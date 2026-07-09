@@ -1,6 +1,8 @@
 package com.papack.survivalstrategy;
 
+import com.papack.survivalstrategy.debug.DevCommand;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -14,6 +16,9 @@ import static com.papack.survivalstrategy.fields.Fields.remainingTime;
 public class SurvivalStrategy implements ModInitializer {
 
     public static final String MOD_ID = "survivalstrategy";
+
+    public static final int PLAYER_INIT_REMAINING_TIME = RewardConfig.getGameTime(2, 0, 0);
+
 
     @Override
     public void onInitialize() {
@@ -58,16 +63,23 @@ public class SurvivalStrategy implements ModInitializer {
             if (handler.player instanceof IModPropertiesServerPlayer iPlayer) {
 
                 // Initialize if "registeredPlayer" is false.
-                if (!Utils.isRegisteredPlayer(iPlayer)) {
+                if (!Utils.isRegisteredPlayer(iPlayer) || Utils.isBannedPlayer(iPlayer)) {
                     Utils.initializeThePlayer(iPlayer);
                 }
             }
         });
 
         // Server Tick Event
-        ServerTickEvents.END_SERVER_TICK.register(ServerTick::onServerTick);
+        ServerTickEvents.END_SERVER_TICK.register((server) -> {
+            ServerTick.onServerTick(server);
+            TickScheduler.tick();
+        });
 
         // ScoreBoard Object
         ServerLifecycleEvents.SERVER_STARTED.register(GlobalScoreboardManager::initScoreboard);
+
+
+        // Development commands
+        CommandRegistrationCallback.EVENT.register(DevCommand::developmentCommands);
     }
 }
