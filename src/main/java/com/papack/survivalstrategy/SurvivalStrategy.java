@@ -32,10 +32,6 @@ public class SurvivalStrategy implements ModInitializer {
                 int modifiedValue = Math.max(0, value - 5);
 
                 iPlayer.$_setPoolData(remainingTime, modifiedValue);
-
-                // (The result is the same even if you write it this way.)
-                // iPlayer.$_getDataPool().$_setValue(lifeCounter, modifiedValue);
-
             }
 
             return true;
@@ -63,8 +59,9 @@ public class SurvivalStrategy implements ModInitializer {
             if (handler.player instanceof IModPropertiesServerPlayer iPlayer) {
 
                 // Initialize if "registeredPlayer" is false.
-                if (!Utils.isRegisteredPlayer(iPlayer) || Utils.isBannedPlayer(iPlayer)) {
-                    Utils.initializeThePlayer(iPlayer);
+                boolean banned = Utils.isBannedPlayer(iPlayer);
+                if (!Utils.isRegisteredPlayer(iPlayer) || banned) {
+                    Utils.initializeThePlayer(iPlayer, banned);
                 }
             }
         });
