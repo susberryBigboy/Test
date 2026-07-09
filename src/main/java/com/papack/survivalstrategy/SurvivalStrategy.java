@@ -17,7 +17,7 @@ public class SurvivalStrategy implements ModInitializer {
 
     public static final String MOD_ID = "survivalstrategy";
 
-    public static final int PLAYER_INIT_REMAINING_TIME = RewardConfig.getGameTime(2, 0, 0);
+    public static final int PLAYER_INIT_REMAINING_TIME = RewardManager.getGameTime(2, 0, 0);
 
 
     @Override

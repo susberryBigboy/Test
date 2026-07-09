@@ -15,7 +15,7 @@ import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.entity.player.Player;
 
-public class RewardConfig {
+public class RewardManager {
 /*
     public static final int DAY_4 = 96000;
     public static final int DAY_2 = 48000;

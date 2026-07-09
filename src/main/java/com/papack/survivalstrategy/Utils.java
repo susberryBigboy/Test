@@ -49,7 +49,7 @@ public class Utils {
         DataPool dataPool = iPlayer.$_getDataPool();
 
         int currentRemainingTime = (int) dataPool.getValue(remainingTime);
-        int penalty = RewardConfig.getGameTime(2, 0, 0);
+        int penalty = RewardManager.getGameTime(2, 0, 0);
         dataPool.setValue(remainingTime, currentRemainingTime - penalty);
     }
 

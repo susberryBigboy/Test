@@ -5,7 +5,7 @@ import com.papack.survivalstrategy.fields.Fields;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
 
-import static com.papack.survivalstrategy.RewardConfig.*;
+import static com.papack.survivalstrategy.RewardManager.*;
 
 public class PlayerDataManager {
 
