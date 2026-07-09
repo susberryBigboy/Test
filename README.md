@@ -22,7 +22,7 @@ example:
 `}`
 
 Writing it as follows also conveys the same meaning.  
-`iPlayer.getDataPool().setValue(lifeCounter, value);`
+`iPlayer.&_getDataPool().setValue(lifeCounter, value);`
 
 ## Reading from the Field
 Cast ServerPlayer to IModPropertiesServerPlayer.  
