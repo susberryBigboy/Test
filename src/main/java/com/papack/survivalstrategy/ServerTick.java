@@ -19,15 +19,14 @@ public class ServerTick {
                     if (Utils.isRegisteredPlayer(iPlayer)) {
 
                         DataPool dataPool = iPlayer.$_getDataPool();
+                        boolean flagBan = (boolean) dataPool.getValue(Fields.flagBan);
 
-                        if ((int) dataPool.getValue(Fields.remainingTime) <= 0) {
 
-                            if (!(boolean) dataPool.getValue(Fields.flagBan)) {
+                        // <<< GAME OVER >>> \\
+                        if (!flagBan && (int) dataPool.getValue(Fields.remainingTime) <= 0) {
 
-                                // [ GAME OVER ]
-                                dataPool.setValue(Fields.flagBan, true);
-                                GameOverHandler.handleGameOver(serverPlayer, (int) dataPool.getValue(Fields.survivalTime));
-                            }
+                            dataPool.setValue(Fields.flagBan, true);
+                            GameOverHandler.handleGameOver(serverPlayer, (int) dataPool.getValue(Fields.survivalTime));
                         }
                     }
                 }
