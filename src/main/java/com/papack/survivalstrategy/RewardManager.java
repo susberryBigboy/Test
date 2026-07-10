@@ -9,6 +9,7 @@ import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.EnderMan;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.skeleton.Skeleton;
 import net.minecraft.world.entity.monster.spider.Spider;
 import net.minecraft.world.entity.monster.warden.Warden;
@@ -38,9 +39,8 @@ public class RewardManager {
     //  1 hour = 1,000 ticks
     //  30 minutes = 500 ticks
     public static int getGameTime(int gameDay, int gameHour, int gameMinute) {
-       return (gameDay * 24000) + (gameHour * 1000) + (1000 / 60 * gameMinute);
+        return (gameDay * 24000) + (gameHour * 1000) + (1000 / 60 * gameMinute);
     }
-
 
 
     public static int getReward(LivingEntity entity) {
@@ -56,6 +56,8 @@ public class RewardManager {
         if (entity instanceof EnderDragon) return getGameTime(1, 0, 30);
         if (entity instanceof Warden) return getGameTime(2, 0, 0);
 
+        if (entity instanceof Monster) return getGameTime(0, 0, 3);     // (Mobs other than the above)
+
 
         // Penalty
         if (entity instanceof AgeableMob
@@ -64,7 +66,7 @@ public class RewardManager {
                 || entity instanceof WaterAnimal) return -getGameTime(1, 0, 0);
 
 
-        // None
+        // None applicable
         return 0;
     }
 }
