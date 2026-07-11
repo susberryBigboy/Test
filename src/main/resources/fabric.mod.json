@@ -5,7 +5,9 @@
 
   "name": "Survival Strategy",
   "description": "",
-  "authors": [],
+  "authors": [
+    "Papack Craft"
+  ],
   "contact": {},
 
   "license": "All-Rights-Reserved",
