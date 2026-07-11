@@ -5,8 +5,6 @@ import com.papack.survivalstrategy.fields.Fields;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.GameType;
 
-import static com.papack.survivalstrategy.fields.Fields.registeredPlayer;
-import static com.papack.survivalstrategy.fields.Fields.remainingTime;
 
 public class Utils {
 
@@ -20,16 +18,16 @@ public class Utils {
         return (Boolean) dataPool.getValue(Fields.flagBan);
     }
 
-    public static void initializeThePlayer(IModPropertiesServerPlayer iPlayer, boolean banned) {
+    public static void initializeThePlayer(IModPropertiesServerPlayer iPlayer) {
         DataPool dataPool = iPlayer.$_getDataPool();
 
         // Assign default settings to players participating for the first time.
         dataPool.setValue(Fields.flagBan, false);
         dataPool.setValue(Fields.survivalTime, 0);
-        dataPool.setValue(remainingTime, SurvivalStrategy.PLAYER_INIT_REMAINING_TIME);
+        dataPool.setValue(Fields.remainingTime, SurvivalStrategy.DEFAULT_REMAINING_TIME);
 
         // Change to "Registered"
-        dataPool.setValue(registeredPlayer, true);
+        dataPool.setValue(Fields.registeredPlayer, true);
 
         // Forced Survival Mode
         if (iPlayer instanceof ServerPlayer serverPlayer) {
@@ -38,11 +36,14 @@ public class Utils {
     }
 
     public static void onPlayerDied(IModPropertiesServerPlayer iPlayer) {
+
         DataPool dataPool = iPlayer.$_getDataPool();
 
-        int currentRemainingTime = (int) dataPool.getValue(remainingTime);
-        int penalty = RewardManager.getGameTime(2, 0, 0);
-        dataPool.setValue(remainingTime, currentRemainingTime - penalty);
+        if ((boolean) dataPool.getValue(Fields.flagBan)) return;
+
+        int currentRemainingTime = (int) dataPool.getValue(Fields.remainingTime);
+        int penalty = RewardManager.getGameTime(1, 0, 0);
+        dataPool.setValue(Fields.remainingTime, currentRemainingTime - penalty);
     }
 
     // Calculate game ticks that match the duration of real time.

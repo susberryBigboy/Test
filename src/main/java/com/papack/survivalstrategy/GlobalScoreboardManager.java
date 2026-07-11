@@ -46,15 +46,12 @@ public class GlobalScoreboardManager {
         Scoreboard scoreboard = player.level().getServer().getScoreboard();
 
         if (objective != null) {
-            scoreboard.getOrCreatePlayerScore(ScoreHolder.forNameOnly(player.getScoreboardName()), objective)
-                    .set(newValue);
-        }
-    }
+            int currentValue = scoreboard.getOrCreatePlayerScore(ScoreHolder.forNameOnly(player.getScoreboardName()), objective).get();
 
-    public static void updatePlayerData(IModPropertiesServerPlayer iPlayer, int newValue) {
+            if (newValue > currentValue) {
+                scoreboard.getOrCreatePlayerScore(ScoreHolder.forNameOnly(player.getScoreboardName()), objective).set(newValue);
 
-        if (iPlayer instanceof ServerPlayer serverPlayer) {
-            updatePlayerData(serverPlayer, newValue);
+            }
         }
     }
 

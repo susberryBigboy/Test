@@ -8,6 +8,8 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 
@@ -17,7 +19,9 @@ public class SurvivalStrategy implements ModInitializer {
 
     public static final String MOD_ID = "survivalstrategy";
 
-    public static final int PLAYER_INIT_REMAINING_TIME = RewardManager.getGameTime(2, 0, 0);
+    public static final int DEFAULT_REMAINING_TIME = RewardManager.getGameTime(2, 0, 0);
+
+    public static Logger LOGGER = LogManager.getLogger(MOD_ID);
 
 
     @Override
@@ -58,10 +62,16 @@ public class SurvivalStrategy implements ModInitializer {
 
             if (handler.player instanceof IModPropertiesServerPlayer iPlayer) {
 
+                /*ServerPlayer serverPlayer = handler.player;
+
+                server.getCommands().performPrefixedCommand(serverPlayer.createCommandSourceStack(), "effect clear @s");
+                server.getCommands().performPrefixedCommand(serverPlayer.createCommandSourceStack(), "clear @s");*/
+
+
                 // Initialize if "registeredPlayer" is false.
                 boolean banned = Utils.isBannedPlayer(iPlayer);
                 if (!Utils.isRegisteredPlayer(iPlayer) || banned) {
-                    Utils.initializeThePlayer(iPlayer, banned);
+                    Utils.initializeThePlayer(iPlayer);
                 }
             }
         });

@@ -18,6 +18,9 @@ public class ServerPlayerTick {
 
             DataPool dataPool = iPlayer.$_getDataPool();
 
+            // Skip processing while banned
+            if ((boolean) dataPool.getValue(Fields.flagBan)) return;
+
             // Remaining Time - decrement
             int currentRemainingTime = (int) dataPool.getValue(Fields.remainingTime);
             int updatedRemainingTime = Math.max(0, currentRemainingTime - 1);                  // Just to be safe, stop at -1 as a safeguard.
@@ -35,6 +38,7 @@ public class ServerPlayerTick {
             SendMessage.sendSystemMsgCurrentValues(serverPlayer, updatedRemainingTime, updatedSurvivalTime);
 
             // update Scoreboard
+            // Update only when the score exceeds the current one
             GlobalScoreboardManager.updatePlayerData(serverPlayer, updatedSurvivalTime);
         }
     }
