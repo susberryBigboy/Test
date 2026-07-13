@@ -18,7 +18,7 @@ public class SendMessage {
         if (remainingTime > 0){
         MutableComponent msg =
                 Component.literal("Remaining: " + remainingTime)
-                        .append("  Survival: " + survivalTime)
+                        .append("  Score: " + survivalTime)
                         .withStyle(ChatFormatting.YELLOW)
                         .withStyle(ChatFormatting.BOLD);
 
