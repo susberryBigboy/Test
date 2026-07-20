@@ -1,5 +1,6 @@
 package com.papack.survivalstrategy;
 
+import com.papack.survivalstrategy.config.Config;
 import com.papack.survivalstrategy.debug.DevCommand;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -8,6 +9,7 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
+import net.minecraft.server.level.ServerPlayer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -19,13 +21,16 @@ public class SurvivalStrategy implements ModInitializer {
 
     public static final String MOD_ID = "survivalstrategy";
 
-    public static final int DEFAULT_REMAINING_TIME = RewardManager.getGameTime(2, 0, 0);
-
     public static Logger LOGGER = LogManager.getLogger(MOD_ID);
 
+    public static final int DEFAULT_REMAINING_TIME = RewardManager.getGameTime(2, 0, 0);
+
+    public static Config config;
 
     @Override
     public void onInitialize() {
+
+        config = Config.load();
 
         // Value modification upon player death
         ServerLivingEntityEvents.ALLOW_DEATH.register((entity, damageSource, damageAmount) -> {
@@ -72,6 +77,7 @@ public class SurvivalStrategy implements ModInitializer {
                 boolean banned = Utils.isBannedPlayer(iPlayer);
                 if (!Utils.isRegisteredPlayer(iPlayer) || banned) {
                     Utils.initializeThePlayer(iPlayer);
+                    Utils.setInitialEquipments((ServerPlayer) iPlayer);
                 }
             }
         });

@@ -2,17 +2,14 @@
   "schemaVersion": 1,
   "id": "survivalstrategy",
   "version": "${version}",
-
   "name": "Survival Strategy",
   "description": "",
   "authors": [
     "Papack Craft"
   ],
   "contact": {},
-
   "license": "All-Rights-Reserved",
   "icon": "assets/test/icon.png",
-
   "environment": "server",
   "entrypoints": {
     "client": [
@@ -22,15 +19,13 @@
       "com.papack.survivalstrategy.SurvivalStrategy"
     ]
   },
-
   "mixins": [
-    "survivalstrategy.mixins.json"
-    ,{
+    "survivalstrategy.mixins.json",
+    {
       "config": "survivalstrategy.client.mixins.json",
       "environment": "client"
     }
   ],
-
   "depends": {
     "fabricloader": ">=${loader_version}",
     "fabric-api": "*",

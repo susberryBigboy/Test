@@ -1,9 +1,17 @@
 package com.papack.survivalstrategy;
 
+import com.papack.survivalstrategy.config.Config;
 import com.papack.survivalstrategy.fields.DataPool;
 import com.papack.survivalstrategy.fields.Fields;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameType;
+
+import java.util.Optional;
 
 
 public class Utils {
@@ -32,6 +40,21 @@ public class Utils {
         // Forced Survival Mode
         if (iPlayer instanceof ServerPlayer serverPlayer) {
             serverPlayer.setGameMode(GameType.SURVIVAL);
+        }
+    }
+
+    public static void setInitialEquipments(ServerPlayer serverPlayer) {
+        for (Config.InitialEquipments equipment : SurvivalStrategy.config.playerInitialEquipmentsList) {
+            Optional<Holder.Reference<Item>> optional = BuiltInRegistries.ITEM.get(Identifier.parse(equipment.itemId()));
+
+            if (optional.isPresent()) {
+                Item item = optional.get().value();
+                ItemStack stack = new ItemStack(item, equipment.lot());
+                // インベントリにセット
+                serverPlayer.getInventory().setItem(equipment.slot(), stack);
+            } else {
+                SurvivalStrategy.LOGGER.warn("The item ID specified in the config was not found : {}", equipment.itemId());
+            }
         }
     }
 
