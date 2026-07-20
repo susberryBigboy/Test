@@ -1,8 +1,14 @@
 package com.papack.survivalstrategy;
 
 import com.papack.survivalstrategy.config.Config;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ambient.AmbientCreature;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.fish.WaterAnimal;
@@ -16,6 +22,9 @@ import net.minecraft.world.entity.monster.spider.Spider;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
 import static com.papack.survivalstrategy.SurvivalStrategy.config;
 
@@ -74,6 +83,32 @@ public class RewardManager {
     }
 
     private static int rewardTime(Config.RewardTime rewardTime) {
-        return getGameTime(rewardTime.day(),rewardTime.hour(),rewardTime.minute());
+        return getGameTime(rewardTime.day(), rewardTime.hour(), rewardTime.minute());
+    }
+
+    private static int calculatePoints(ServerLevel level , LivingEntity target, ServerPlayer player) {
+        float attackDamage = (float) target.getAttributeValue(Attributes.ATTACK_DAMAGE);
+        ItemStack mainHandItem = target.getWeaponItem();
+
+
+        double hpMultiplier = target.getMaxHealth() / 20.0;
+        double attackMultiplier = attackDamage / 3.0;
+    }
+
+    private static double getWeaponBaseValue(ItemStack stack){
+        double attackDamage = 0.0;
+
+        ItemAttributeModifiers modifiers = stack.getOrDefault(
+                DataComponents.ATTRIBUTE_MODIFIERS,
+                ItemAttributeModifiers.EMPTY
+        );
+
+        for (ItemAttributeModifiers.Entry entry : modifiers.modifiers()) {
+            if (entry.attribute().is(Attributes.ATTACK_DAMAGE)) {
+                attackDamage += entry.modifier().amount();
+            }
+        }
+
+       return attackDamage;
     }
 }
