@@ -27,8 +27,12 @@ public class Config {
     public record InitialEquipments(String itemId, int slot, int lot) {
     }
 
-    // record - for Initial Remaining Time
+    // record - for Initial Remaining Time (gameTime)
     public record InitialRemainingTime(int day, int hour, int minute) {
+    }
+
+    // record - for Reward , Penalty  (gameTime)
+    public record RewardTime(int day, int hour, int minute) {
     }
 
     // Mod Settings             ---------------------------------------------------------------------------------------
@@ -42,6 +46,21 @@ public class Config {
     public boolean useInitialEquipments = true;
 
     public InitialRemainingTime initialRemainingTime = new InitialRemainingTime(2, 0, 0);
+
+    // Rewards
+    public RewardTime spider = new RewardTime(0, 0, 5);
+    public RewardTime skeleton = new RewardTime(0, 0, 20);
+    public RewardTime creeper = new RewardTime(0, 0, 20);
+    public RewardTime zombie = new RewardTime(0, 0, 30);
+    public RewardTime player = new RewardTime(0, 0, 40);
+    public RewardTime enderMan = new RewardTime(0, 0, 50);
+    public RewardTime witherBoss = new RewardTime(0, 4, 0);
+    public RewardTime enderDragon = new RewardTime(1, 0, 30);
+    public RewardTime warden = new RewardTime(2, 0, 0);
+    public RewardTime monster = new RewardTime(0, 0, 3);
+
+    // Penalty
+    public RewardTime animal = new RewardTime(-1, 0, 0);
 
 
     // Config File Operation    ---------------------------------------------------------------------------------------

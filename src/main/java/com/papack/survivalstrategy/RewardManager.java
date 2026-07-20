@@ -1,5 +1,6 @@
 package com.papack.survivalstrategy;
 
+import com.papack.survivalstrategy.config.Config;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ambient.AmbientCreature;
@@ -15,6 +16,8 @@ import net.minecraft.world.entity.monster.spider.Spider;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.entity.player.Player;
+
+import static com.papack.survivalstrategy.SurvivalStrategy.config;
 
 public class RewardManager {
 /*
@@ -46,27 +49,31 @@ public class RewardManager {
     public static int getReward(LivingEntity entity) {
 
         // Reward
-        if (entity instanceof Spider) return getGameTime(0, 0, 5);
-        if (entity instanceof Skeleton) return getGameTime(0, 0, 20);
-        if (entity instanceof Creeper) return getGameTime(0, 0, 20);
-        if (entity instanceof Zombie) return getGameTime(0, 0, 30);
-        if (entity instanceof Player) return getGameTime(0, 0, 40);
-        if (entity instanceof EnderMan) return getGameTime(0, 0, 50);
-        if (entity instanceof WitherBoss) return getGameTime(0, 4, 0);
-        if (entity instanceof EnderDragon) return getGameTime(1, 0, 30);
-        if (entity instanceof Warden) return getGameTime(2, 0, 0);
+        if (entity instanceof Spider) return rewardTime(config.spider);
+        if (entity instanceof Skeleton) return rewardTime(config.skeleton);
+        if (entity instanceof Creeper) return rewardTime(config.creeper);
+        if (entity instanceof Zombie) return rewardTime(config.zombie);
+        if (entity instanceof Player) return rewardTime(config.player);
+        if (entity instanceof EnderMan) return rewardTime(config.enderMan);
+        if (entity instanceof WitherBoss) return rewardTime(config.witherBoss);
+        if (entity instanceof EnderDragon) return rewardTime(config.enderDragon);
+        if (entity instanceof Warden) return rewardTime(config.warden);
 
-        if (entity instanceof Monster) return getGameTime(0, 0, 3);     // (Mobs other than the above)
+        if (entity instanceof Monster) return rewardTime(config.monster);    // (Mobs other than the above)
 
 
         // Penalty
         if (entity instanceof AgeableMob
                 || entity instanceof Animal
                 || entity instanceof AmbientCreature
-                || entity instanceof WaterAnimal) return -getGameTime(1, 0, 0);
+                || entity instanceof WaterAnimal) return rewardTime(config.animal);
 
 
         // None applicable
         return 0;
+    }
+
+    private static int rewardTime(Config.RewardTime rewardTime) {
+        return getGameTime(rewardTime.day(),rewardTime.hour(),rewardTime.minute());
     }
 }
