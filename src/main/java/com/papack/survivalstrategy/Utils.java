@@ -32,7 +32,7 @@ public class Utils {
         // Assign default settings to players participating for the first time.
         dataPool.setValue(Fields.flagBan, false);
         dataPool.setValue(Fields.survivalTime, 0);
-        dataPool.setValue(Fields.remainingTime, SurvivalStrategy.DEFAULT_REMAINING_TIME);
+        dataPool.setValue(Fields.remainingTime, SurvivalStrategy.initialRemainingTime);
 
         // Change to "Registered"
         dataPool.setValue(Fields.registeredPlayer, true);

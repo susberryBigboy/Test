@@ -23,14 +23,15 @@ public class SurvivalStrategy implements ModInitializer {
 
     public static Logger LOGGER = LogManager.getLogger(MOD_ID);
 
-    public static final int DEFAULT_REMAINING_TIME = RewardManager.getGameTime(2, 0, 0);
-
     public static Config config;
+    public static int initialRemainingTime;
 
     @Override
     public void onInitialize() {
 
+        // Load Config Instance
         config = Config.load();
+        initialRemainingTime = RewardManager.getGameTime(config.initialRemainingTime.day(), config.initialRemainingTime.hour(), config.initialRemainingTime.minute());
 
         // Value modification upon player death
         ServerLivingEntityEvents.ALLOW_DEATH.register((entity, damageSource, damageAmount) -> {
@@ -77,7 +78,10 @@ public class SurvivalStrategy implements ModInitializer {
                 boolean banned = Utils.isBannedPlayer(iPlayer);
                 if (!Utils.isRegisteredPlayer(iPlayer) || banned) {
                     Utils.initializeThePlayer(iPlayer);
-                    Utils.setInitialEquipments((ServerPlayer) iPlayer);
+
+                    if (config.useInitialEquipments) {
+                        Utils.setInitialEquipments((ServerPlayer) iPlayer);
+                    }
                 }
             }
         });

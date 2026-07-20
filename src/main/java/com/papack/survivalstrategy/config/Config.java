@@ -18,17 +18,20 @@ import static com.papack.survivalstrategy.SurvivalStrategy.LOGGER;
 
 public class Config {
 
-    // Config File Location
+    // Config File Location     ---------------------------------------------------------------------------------------
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final Path CONFIG_DIR = FabricLoader.getInstance().getConfigDir().resolve("SurvivalStrategy");
     private static final File FILE = CONFIG_DIR.resolve("config.json").toFile();
 
-    // record - for Equipments
+    // record - for Equipments  ---------------------------------------------------------------------------------------
     public record InitialEquipments(String itemId, int slot, int lot) {
     }
 
+    // record - for Initial Remaining Time
+    public record InitialRemainingTime(int day, int hour, int minute) {
+    }
 
-    // Mod Settings
+    // Mod Settings             ---------------------------------------------------------------------------------------
     public List<InitialEquipments> playerInitialEquipmentsList = new ArrayList<>(Arrays.asList(
             new InitialEquipments("minecraft:wooden_axe", 0, 1),
             new InitialEquipments("minecraft:wooden_pickaxe", 1, 1),
@@ -36,8 +39,12 @@ public class Config {
             new InitialEquipments("minecraft:bread", 8, 5)
     ));
 
+    public boolean useInitialEquipments = true;
 
-    // Config File Operation
+    public InitialRemainingTime initialRemainingTime = new InitialRemainingTime(2, 0, 0);
+
+
+    // Config File Operation    ---------------------------------------------------------------------------------------
     public static Config load() {
         if (FILE.exists()) {
             try (FileReader reader = new FileReader(FILE)) {
