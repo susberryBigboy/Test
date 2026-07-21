@@ -31,14 +31,12 @@ public class RewardCalculator {
         // メインハンドのアイテムを取得
         ItemStack mainHandItem = mob.getMainHandItem();
 
-        // weaponValue. 武器の基礎攻撃力（エンチャント無視。弓・クロスボウは6）
+        // weaponValue. 武器の基礎攻撃力
         double weaponValue = 0.0;
         if (!mainHandItem.isEmpty()) {
             if (mainHandItem.getItem() instanceof ProjectileWeaponItem) {
-                // 弓・クロスボウ等の射撃武器
                 weaponValue = 6.0;
             } else {
-                // 近接武器などの素の基礎攻撃力を取得
                 weaponValue = getBaseItemAttackDamage(mainHandItem);
             }
         }
@@ -46,12 +44,17 @@ public class RewardCalculator {
         // enchantValue. エンチャントレベルに応じた加算 (0.15 * レベル)
         int sharpnessLevel = getEnchantmentLevel(mob, mainHandItem, Enchantments.SHARPNESS);
         int powerLevel = getEnchantmentLevel(mob, mainHandItem, Enchantments.POWER);
-
         int totalEnchantLevel = sharpnessLevel + powerLevel;
         double enchantValue = 0.15 * totalEnchantLevel;
 
-        // e. 計算式: healthValue * (1 + (weaponValue / base + enchantValue) * 0.3);
-        return healthValue * (1 + (weaponValue / base + enchantValue) * 0.3);
+        // armorValue. Mobの合計防御力を取得（装備＋Mob独自の属性値）
+        double armorValue = mob.getAttributeValue(Attributes.ARMOR);
+
+        // 防御力ボーナス（例: 防御力 10 あたり +0.3 相当の加算など調整可能）
+        double armorBonus = armorValue / 10.0;
+
+        // 計算式: healthValue * (1 + (weaponValue / base + enchantValue + armorBonus) * 0.3)
+        return healthValue * (1 + (weaponValue / base + enchantValue + armorBonus) * 0.3);
     }
 
     /**

@@ -74,6 +74,4 @@ public class RewardManager {
     private static int rewardTime(Config.RewardTime rewardTime) {
         return getGameTime(rewardTime.day(), rewardTime.hour(), rewardTime.minute());
     }
-
-
 }
