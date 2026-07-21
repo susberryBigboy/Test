@@ -1,30 +1,17 @@
 package com.papack.survivalstrategy;
 
 import com.papack.survivalstrategy.config.Config;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ambient.AmbientCreature;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.fish.WaterAnimal;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
-import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.skeleton.Skeleton;
-import net.minecraft.world.entity.monster.spider.Spider;
 import net.minecraft.world.entity.monster.warden.Warden;
-import net.minecraft.world.entity.monster.zombie.Zombie;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.component.ItemAttributeModifiers;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
 import static com.papack.survivalstrategy.SurvivalStrategy.config;
 
@@ -58,17 +45,19 @@ public class RewardManager {
     public static int getReward(LivingEntity entity) {
 
         // Reward
-        if (entity instanceof Spider) return rewardTime(config.spider);
-        if (entity instanceof Skeleton) return rewardTime(config.skeleton);
+        /*if (entity instanceof Spider) return rewardTime(config.spider);
+        if (entity instanceof AbstractSkeleton) return rewardTime(config.skeleton);
         if (entity instanceof Creeper) return rewardTime(config.creeper);
-        if (entity instanceof Zombie) return rewardTime(config.zombie);
+        if (entity instanceof Zombie) return rewardTime(config.zombie);*/
+
         if (entity instanceof Player) return rewardTime(config.player);
         if (entity instanceof EnderMan) return rewardTime(config.enderMan);
         if (entity instanceof WitherBoss) return rewardTime(config.witherBoss);
         if (entity instanceof EnderDragon) return rewardTime(config.enderDragon);
         if (entity instanceof Warden) return rewardTime(config.warden);
 
-        if (entity instanceof Monster) return rewardTime(config.monster);    // (Mobs other than the above)
+        if (entity instanceof Monster)
+            return (int) (rewardTime(config.zombie) * RewardCalculator.calculateRewardPoints(entity));    // (Mobs other than the above)
 
 
         // Penalty
@@ -86,29 +75,5 @@ public class RewardManager {
         return getGameTime(rewardTime.day(), rewardTime.hour(), rewardTime.minute());
     }
 
-    private static int calculatePoints(ServerLevel level , LivingEntity target, ServerPlayer player) {
-        float attackDamage = (float) target.getAttributeValue(Attributes.ATTACK_DAMAGE);
-        ItemStack mainHandItem = target.getWeaponItem();
 
-
-        double hpMultiplier = target.getMaxHealth() / 20.0;
-        double attackMultiplier = attackDamage / 3.0;
-    }
-
-    private static double getWeaponBaseValue(ItemStack stack){
-        double attackDamage = 0.0;
-
-        ItemAttributeModifiers modifiers = stack.getOrDefault(
-                DataComponents.ATTRIBUTE_MODIFIERS,
-                ItemAttributeModifiers.EMPTY
-        );
-
-        for (ItemAttributeModifiers.Entry entry : modifiers.modifiers()) {
-            if (entry.attribute().is(Attributes.ATTACK_DAMAGE)) {
-                attackDamage += entry.modifier().amount();
-            }
-        }
-
-       return attackDamage;
-    }
 }

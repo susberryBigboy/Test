@@ -48,16 +48,18 @@ public class Config {
     public InitialRemainingTime initialRemainingTime = new InitialRemainingTime(2, 0, 0);
 
     // Rewards
-    public RewardTime spider = new RewardTime(0, 0, 5);
+    /*public RewardTime spider = new RewardTime(0, 0, 5);
     public RewardTime skeleton = new RewardTime(0, 0, 20);
-    public RewardTime creeper = new RewardTime(0, 0, 20);
-    public RewardTime zombie = new RewardTime(0, 0, 30);
+    public RewardTime creeper = new RewardTime(0, 0, 20);*/
+
+    public RewardTime zombie = new RewardTime(0, 0, 30);        // Basic Point
     public RewardTime player = new RewardTime(0, 0, 40);
     public RewardTime enderMan = new RewardTime(0, 0, 50);
     public RewardTime witherBoss = new RewardTime(0, 4, 0);
     public RewardTime enderDragon = new RewardTime(1, 0, 30);
     public RewardTime warden = new RewardTime(2, 0, 0);
-    public RewardTime monster = new RewardTime(0, 0, 3);
+
+    //public RewardTime monster = new RewardTime(0, 0, 3);
 
     // Penalty
     public RewardTime animal = new RewardTime(-1, 0, 0);
