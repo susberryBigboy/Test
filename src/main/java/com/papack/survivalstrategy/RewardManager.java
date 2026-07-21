@@ -10,6 +10,8 @@ import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Ravager;
+import net.minecraft.world.entity.monster.piglin.PiglinBrute;
 import net.minecraft.world.entity.monster.warden.Warden;
 import net.minecraft.world.entity.player.Player;
 
@@ -44,20 +46,23 @@ public class RewardManager {
 
     public static int getReward(LivingEntity entity) {
 
-        // Reward
-        /*if (entity instanceof Spider) return rewardTime(config.spider);
-        if (entity instanceof AbstractSkeleton) return rewardTime(config.skeleton);
-        if (entity instanceof Creeper) return rewardTime(config.creeper);
-        if (entity instanceof Zombie) return rewardTime(config.zombie);*/
+        // Reward Points
 
+        // Static Values
         if (entity instanceof Player) return rewardTime(config.player);
         if (entity instanceof EnderMan) return rewardTime(config.enderMan);
         if (entity instanceof WitherBoss) return rewardTime(config.witherBoss);
         if (entity instanceof EnderDragon) return rewardTime(config.enderDragon);
         if (entity instanceof Warden) return rewardTime(config.warden);
 
-        if (entity instanceof Monster)
-            return (int) (rewardTime(config.zombie) * RewardCalculator.calculateRewardPoints(entity));    // (Mobs other than the above)
+        // Dynamic Values ( basic * multiplier )
+        if (entity instanceof PiglinBrute){
+            return (int) (rewardTime(config.piglinBrute) * RewardCalculator.calculateRewardPoints(entity));
+        }
+
+        if (entity instanceof Monster){
+            return (int) (rewardTime(config.monster) * RewardCalculator.calculateRewardPoints(entity));    // (Mobs other than the above)
+        }
 
 
         // Penalty

@@ -18,12 +18,13 @@ import static com.papack.survivalstrategy.SurvivalStrategy.LOGGER;
 
 public class Config {
 
+    // [ Initial ]
     // Config File Location     ---------------------------------------------------------------------------------------
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final Path CONFIG_DIR = FabricLoader.getInstance().getConfigDir().resolve("SurvivalStrategy");
     private static final File FILE = CONFIG_DIR.resolve("config.json").toFile();
 
-    // record - for Equipments  ---------------------------------------------------------------------------------------
+    // record - for Equipments
     public record InitialEquipments(String itemId, int slot, int lot) {
     }
 
@@ -35,7 +36,11 @@ public class Config {
     public record RewardTime(int day, int hour, int minute) {
     }
 
-    // Mod Settings             ---------------------------------------------------------------------------------------
+    // [ Mod Settings ]
+    // Time remaining at the start of the game
+    public InitialRemainingTime initialRemainingTime = new InitialRemainingTime(2, 0, 0);
+
+    // Equipment at the start of the game
     public List<InitialEquipments> playerInitialEquipmentsList = new ArrayList<>(Arrays.asList(
             new InitialEquipments("minecraft:wooden_axe", 0, 1),
             new InitialEquipments("minecraft:wooden_pickaxe", 1, 1),
@@ -43,23 +48,27 @@ public class Config {
             new InitialEquipments("minecraft:bread", 8, 5)
     ));
 
+    // Will you use the starting equipment?
     public boolean useInitialEquipments = true;
 
-    public InitialRemainingTime initialRemainingTime = new InitialRemainingTime(2, 0, 0);
+    // Do items drop upon death?    (true: vanilla behavior , false: forcibly delete)
+    // This applies only when the player dies
+    public boolean dropInventoryUponDeath = false;
+
+    // However, if killed by another player     (true: vanilla behavior , false: forcibly delete)
+    public boolean dropInventoryWhenKilledByPlayer = true;
 
     // Rewards
-    /*public RewardTime spider = new RewardTime(0, 0, 5);
-    public RewardTime skeleton = new RewardTime(0, 0, 20);
-    public RewardTime creeper = new RewardTime(0, 0, 20);*/
-
-    public RewardTime zombie = new RewardTime(0, 0, 30);        // Basic Point
+    // Individual settings can also be configured
+    public RewardTime piglinBrute = new RewardTime(0, 0, 40);
     public RewardTime player = new RewardTime(0, 0, 40);
     public RewardTime enderMan = new RewardTime(0, 0, 50);
     public RewardTime witherBoss = new RewardTime(0, 4, 0);
     public RewardTime enderDragon = new RewardTime(1, 0, 30);
     public RewardTime warden = new RewardTime(2, 0, 0);
 
-    //public RewardTime monster = new RewardTime(0, 0, 3);
+    // Base values for hostile mobs. The standard is a zombie with no weapons or armor
+    public RewardTime monster = new RewardTime(0, 0, 30);
 
     // Penalty
     public RewardTime animal = new RewardTime(-1, 0, 0);
