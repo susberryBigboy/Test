@@ -42,10 +42,11 @@ public class Config {
 
     // Equipment at the start of the game
     public List<InitialEquipments> playerInitialEquipmentsList = new ArrayList<>(Arrays.asList(
-            new InitialEquipments("minecraft:wooden_axe", 0, 1),
-            new InitialEquipments("minecraft:wooden_pickaxe", 1, 1),
-            new InitialEquipments("minecraft:leather_boots", 36, 1),
-            new InitialEquipments("minecraft:bread", 8, 5)
+            new InitialEquipments("minecraft:wooden_axe"     ,  0 , 1) ,
+            new InitialEquipments("minecraft:wooden_pickaxe" ,  1 , 1) ,
+            new InitialEquipments("minecraft:leather_boots"  , 36 , 1) ,
+            new InitialEquipments("minecraft:bread"          ,  8 , 5)
+
     ));
 
     // Will you use the starting equipment?
@@ -60,18 +61,27 @@ public class Config {
 
     // Rewards
     // Individual settings can also be configured
-    public RewardTime piglinBrute = new RewardTime(0, 0, 40);
-    public RewardTime player = new RewardTime(0, 0, 40);
-    public RewardTime enderMan = new RewardTime(0, 0, 50);
-    public RewardTime witherBoss = new RewardTime(0, 4, 0);
+    public RewardTime vindicator  = new RewardTime(0, 0, 50);
+    public RewardTime evoker      = new RewardTime(0, 1, 10);
+    public RewardTime raider      = new RewardTime(0, 0, 40);   // * multiplier
+
+    public RewardTime piglinBrute = new RewardTime(0, 0, 40);   // * multiplier
+    public RewardTime player      = new RewardTime(0, 0, 40);
+    public RewardTime enderMan    = new RewardTime(0, 0, 50);
+    public RewardTime witherBoss  = new RewardTime(0, 4, 0);
     public RewardTime enderDragon = new RewardTime(1, 0, 30);
-    public RewardTime warden = new RewardTime(2, 0, 0);
+    public RewardTime warden      = new RewardTime(2, 0, 0);
+
 
     // Base values for hostile mobs. The standard is a zombie with no weapons or armor
-    public RewardTime monster = new RewardTime(0, 0, 30);
+    public RewardTime monster = new RewardTime(0, 0, 30);   // * multiplier
 
-    // Penalty
-    public RewardTime animal = new RewardTime(-1, 0, 0);
+    // Penalty - Enter the value as a negative number
+    public RewardTime villager        = new RewardTime(0, -12, 0);
+    public RewardTime wanderingTrader = new RewardTime(0, -2, 0);
+    public RewardTime abstractGolem   = new RewardTime(0, -8, 0);
+    public RewardTime basicMobs       = new RewardTime(0, -1, 0);
+
 
 
     // Config File Operation    ---------------------------------------------------------------------------------------

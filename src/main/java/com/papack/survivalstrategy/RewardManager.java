@@ -1,19 +1,20 @@
 package com.papack.survivalstrategy;
 
 import com.papack.survivalstrategy.config.Config;
-import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ambient.AmbientCreature;
-import net.minecraft.world.entity.animal.Animal;
-import net.minecraft.world.entity.animal.fish.WaterAnimal;
+import net.minecraft.world.entity.animal.golem.AbstractGolem;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Ravager;
+import net.minecraft.world.entity.monster.illager.Evoker;
+import net.minecraft.world.entity.monster.illager.Vindicator;
 import net.minecraft.world.entity.monster.piglin.PiglinBrute;
 import net.minecraft.world.entity.monster.warden.Warden;
+import net.minecraft.world.entity.npc.villager.Villager;
+import net.minecraft.world.entity.npc.wanderingtrader.WanderingTrader;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.raid.Raider;
 
 import static com.papack.survivalstrategy.SurvivalStrategy.config;
 
@@ -46,33 +47,55 @@ public class RewardManager {
 
     public static int getReward(LivingEntity entity) {
 
-        // Reward Points
-
+        // [ Reward ]
         // Static Values
         if (entity instanceof Player) return rewardTime(config.player);
+
+
+        if (entity instanceof Evoker) return rewardTime(config.evoker);
+
         if (entity instanceof EnderMan) return rewardTime(config.enderMan);
-        if (entity instanceof WitherBoss) return rewardTime(config.witherBoss);
+
         if (entity instanceof EnderDragon) return rewardTime(config.enderDragon);
+        if (entity instanceof WitherBoss) return rewardTime(config.witherBoss);
         if (entity instanceof Warden) return rewardTime(config.warden);
 
+
         // Dynamic Values ( basic * multiplier )
-        if (entity instanceof PiglinBrute){
+        if (entity instanceof Vindicator) {
+            return (int) (rewardTime(config.vindicator) * RewardCalculator.calculateRewardPoints(entity));
+        }
+
+        if (entity instanceof Raider) {
+            return (int) (rewardTime(config.raider) * RewardCalculator.calculateRewardPoints(entity));  // pillager , illusioner
+        }
+
+        if (entity instanceof PiglinBrute) {
             return (int) (rewardTime(config.piglinBrute) * RewardCalculator.calculateRewardPoints(entity));
         }
 
-        if (entity instanceof Monster){
+        // Basic values not included in the above
+        if (entity instanceof Monster) {
             return (int) (rewardTime(config.monster) * RewardCalculator.calculateRewardPoints(entity));    // (Mobs other than the above)
         }
 
 
-        // Penalty
-        if (entity instanceof AgeableMob
-                || entity instanceof Animal
-                || entity instanceof AmbientCreature
-                || entity instanceof WaterAnimal) return rewardTime(config.animal);
+        // [ Penalty ]
+        if (entity instanceof Villager) {
+            return rewardTime(config.villager);
+        }
+        if (entity instanceof WanderingTrader) {
+            return rewardTime(config.wanderingTrader);
+        }
+        if (entity instanceof AbstractGolem) {
+            return rewardTime(config.abstractGolem);
+        }
+
+        // Basic values not included in the above
+        if (entity instanceof LivingEntity) return rewardTime(config.basicMobs);
 
 
-        // None applicable
+        // None applicable (fallback)
         return 0;
     }
 
