@@ -66,12 +66,6 @@ public class SurvivalStrategy implements ModInitializer {
 
             if (handler.player instanceof ServerPlayer serverPlayer && handler.player instanceof IModPropertiesServerPlayer iPlayer) {
 
-                /*ServerPlayer serverPlayer = handler.player;
-
-                server.getCommands().performPrefixedCommand(serverPlayer.createCommandSourceStack(), "effect clear @s");
-                server.getCommands().performPrefixedCommand(serverPlayer.createCommandSourceStack(), "clear @s");*/
-
-
                 boolean banned = Utils.isBannedPlayer(iPlayer);
 
                 if (!Utils.isRegisteredPlayer(iPlayer) || banned) {
