@@ -4,6 +4,10 @@
   "package": "com.papack.survivalstrategy.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "MixinLivingEntity",
+    "MixinServerGamePacketListenerImpl",
+    "MixinServerPlayer",
+    "MixinPlayerDataStorage"
   ],
   "injectors": {
     "defaultRequire": 1
@@ -12,8 +16,5 @@
     "requireAnnotations": true
   },
   "server": [
-    "MixinLivingEntity",
-    "MixinServerPlayer",
-    "MixinServerGamePacketListenerImpl"
   ]
 }

@@ -15,7 +15,7 @@ public class SendMessage {
     }
 
     public static void sendSystemMsgCurrentValues(ServerPlayer serverPlayer, int remainingTime , int survivalTime) {
-        if (remainingTime > 0){
+        if (remainingTime >= 0){
         MutableComponent msg =
                 Component.literal("Remaining: " + remainingTime)
                         .append("  Score: " + survivalTime)

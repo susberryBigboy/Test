@@ -66,7 +66,7 @@ public class SurvivalStrategy implements ModInitializer {
         // Player Join Event
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
 
-            if (handler.player instanceof IModPropertiesServerPlayer iPlayer) {
+            if (handler.player instanceof ServerPlayer serverPlayer && handler.player instanceof IModPropertiesServerPlayer iPlayer) {
 
                 /*ServerPlayer serverPlayer = handler.player;
 
@@ -74,17 +74,27 @@ public class SurvivalStrategy implements ModInitializer {
                 server.getCommands().performPrefixedCommand(serverPlayer.createCommandSourceStack(), "clear @s");*/
 
 
-                // Initialize if "registeredPlayer" is false.
                 boolean banned = Utils.isBannedPlayer(iPlayer);
+
                 if (!Utils.isRegisteredPlayer(iPlayer) || banned) {
                     Utils.initializeThePlayer(iPlayer);
 
                     if (config.useInitialEquipments) {
-                        Utils.setInitialEquipments((ServerPlayer) iPlayer);
+                        Utils.setInitialEquipments(serverPlayer);
                     }
                 }
             }
         });
+
+        // Player Disconnect Event
+        ServerPlayConnectionEvents.DISCONNECT.register((handler, server) -> {
+
+            if (handler.player instanceof ServerPlayer serverPlayer && handler.player instanceof IModPropertiesServerPlayer iPlayer) {
+                boolean banned = Utils.isBannedPlayer(iPlayer);
+                if (banned) serverPlayer.setRespawnPosition(null, false);
+            }
+        });
+
 
         // Server Tick Event
         ServerTickEvents.END_SERVER_TICK.register((server) -> {
@@ -98,5 +108,7 @@ public class SurvivalStrategy implements ModInitializer {
 
         // Development commands
         CommandRegistrationCallback.EVENT.register(DevCommand::developmentCommands);
+
+
     }
 }
