@@ -10,7 +10,7 @@
   "contact": {},
   "license": "All-Rights-Reserved",
   "icon": "assets/test/icon.png",
-  "environment": "server",
+  "environment": "*",
   "entrypoints": {
     "client": [
       "com.papack.survivalstrategy.client.SurvivalStrategyClient"
