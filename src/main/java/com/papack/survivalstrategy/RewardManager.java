@@ -51,13 +51,14 @@ public class RewardManager {
         // Static Values
         if (entity instanceof Player) return rewardTime(config.player);
 
+        if (entity instanceof EnderMan) return rewardTime(config.enderMan);
 
         if (entity instanceof Evoker) return rewardTime(config.evoker);
 
-        if (entity instanceof EnderMan) return rewardTime(config.enderMan);
-
         if (entity instanceof EnderDragon) return rewardTime(config.enderDragon);
+
         if (entity instanceof WitherBoss) return rewardTime(config.witherBoss);
+
         if (entity instanceof Warden) return rewardTime(config.warden);
 
 
