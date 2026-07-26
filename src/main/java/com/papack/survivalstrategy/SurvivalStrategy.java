@@ -1,9 +1,7 @@
 package com.papack.survivalstrategy;
 
 import com.papack.survivalstrategy.config.Config;
-import com.papack.survivalstrategy.debug.DevCommand;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -104,11 +102,5 @@ public class SurvivalStrategy implements ModInitializer {
 
         // ScoreBoard Object
         ServerLifecycleEvents.SERVER_STARTED.register(GlobalScoreboardManager::initScoreboard);
-
-
-        // Development commands
-        CommandRegistrationCallback.EVENT.register(DevCommand::developmentCommands);
-
-
     }
 }
